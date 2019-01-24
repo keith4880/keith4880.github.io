@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+
+        <title>AJAX and JSON</title>
+    </head>
+    <body>
+        <ul id="people"></ul>
+        <script>
+            var person = {
+                name: "Keith",
+                age: 38,
+                address: {
+                    street: "12345 Main St",
+                    city: "Boise"
+                },
+                children: ["John", "Susan"]
+            }
+
+            // person = JSON.stringify(person);
+            // person = JSON.parse(person);
+
+            var people = [
+                {
+                    name: "John",
+                    age: 50
+                },
+                {
+                    name: "Paul",
+                    age: 60
+                }
+            ];
+
+            //12345 Main St from var person above
+            console.log(person.address.street);
+            
+            //Array of Children in var person
+            console.log(person.children);
+            // console.log(people[1]);
+            
+            
+            /*
+            var output = '';
+            //for loop
+            for (var i = 0; i < people.length; i++) {
+                //each object from var people
+                console.log(people[i]);
+
+                output += '<li>' + people[i].name + '</li>';
+            }
+
+            //displays on the browser in a list format
+            document.getElementById('people').innerHTML = output;
+            */
+           
+           
+
+            //Source: https://www.w3schools.com/xml/xml_http.asp
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(xhttp.responseText);
+                    var people = response.people;
+
+                    var output = '';
+                    //for loop
+                    for (var i = 0; i < people.length;i++) {
+                        
+                        
+                        
+                /*each object from var people
+                        console.log(people[i]);
+                        */
+                       
+                       
+                        output += '<li>' + people[i].name + '</li>';
+                    }
+                    document.getElementById('people').innerHTML = output;
+                }
+            };
+            xhttp.open("GET", "people.json", true);
+            xhttp.send();
+
+
+        </script>
+    </body>
+</html>
+
+
